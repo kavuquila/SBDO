@@ -1,0 +1,25 @@
+   /* Definindo a animação para o efeito de piscar */
+   @keyframes piscar {
+    0% { opacity: 1; color: rgb(16, 169, 98); } /* Cor normal */
+    50% { opacity: 0; color: rgb(23, 166, 107); }   /* Cor alterada no meio da animação */
+    100% { opacity: 1; color: black; } /* Retorna à cor original */
+  }
+
+  .text-blink {
+    animation: piscar 1s infinite; /* 1s para duração e infinite para repetição */
+  }
+
+
+  /* Definindo a animação para o efeito de piscar com mudança de fundo */
+  @keyframes piscar-fundo {
+    0% { background-color: white; }  /* Cor normal de fundo */
+    50% { background-color: rgb(197, 248, 227); }  /* Cor alterada durante o piscar */
+    100% { background-color: white; }  /* Retorna à cor original */
+  }
+
+  .fundo-blink {
+    animation: piscar-fundo 1s infinite; /* 1s para duração e infinite para repetição */
+  }
+
+
+ 
