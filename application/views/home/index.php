@@ -21,7 +21,7 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid" style="max-width: 95%;">
+            <div class="container-fluid" style="max-width: 95%;height:1000px;">
             <?php if($message = $this->session->flashdata('error')): ?>
      <div class="row">
       <div class="col-md-12">
@@ -38,7 +38,7 @@
 <?php if($message = $this->session->flashdata('info')): ?>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" >
     
         <div id="alerta" class="alert alert-info alert-dismissible fade show" role="alert">
         <strong> <i class="fas fa-exclamation-triangle"></i> &nbsp;&nbsp; <?php echo $message; ?></strong>
@@ -63,12 +63,13 @@
                     <th scope="col">Femenino</th>
                     <th scope="col">PROVA DE VIDA</th>
                     <th scope="col">CADASTRAMENTO</th>
+                    <th scope="col">RECLAMAÇÕES</th>
                     <th scope="col">ÚLTIMA ATUALIZAÇÃO</th>
                     <th scope="col">FUNCIONÁRIO</th>
                     <th scope="col">AÇÕES</th>
                 </tr>
             </thead>
-            <tbody style="font-size:16px; color:#555;" class="text-center">
+            <tbody style="font-size:24px; color:#555;" class="text-center">
                 <?php $count = 1;  foreach($boletins as $boletim): ?>
                 <tr class="<?php
                 $dataHora = date('Y-m-d H:i:s');
@@ -78,14 +79,15 @@
                 // Verifica se a diferença é menor que 60 segundos
                  echo ($diferenca < 60 && $user->idProvincia != $boletim->idProvincia ? 'fundo-blink' : '');
             ?>">
-                    <th scope="row"><?php echo $count++; ?></th>
+                    <th scope="row"><?php echo $count++; ?></b></th>
                     <td><?php echo $boletim->nomeProvincia; ?></td>
-                    <td><?php echo $boletim->total_atendidos; ?></td>
-                    <td><?php echo $boletim->masculino; ?></td>
-                    <td><?php echo $boletim->feminino; ?></td>
-                    <td><?php echo $boletim->numero_provas_vida; ?></td>
-                    <td><?php echo $boletim->numero_cadastrados; ?></td>
-                    <td><?php echo $boletim->data_cadastro; ?></td>
+                    <td><b><?php echo $boletim->total_atendidos; ?></b></td>
+                    <td><b><?php echo $boletim->masculino; ?></b></td>
+                    <td><b><?php echo $boletim->feminino; ?></b></td>
+                    <td><b><?php echo $boletim->numero_provas_vida; ?></b></td>
+                    <td><b><?php echo $boletim->numero_cadastrados; ?></b></td>
+                    <td><b><?php echo $boletim->passes_entregues; ?></b></td>
+                    <td><?php echo tempo_relativo($boletim->data_cadastro); ?></td>
                     <td><?php echo $boletim->first_name.' '.$boletim->last_name; ?></td>
                     <td>
 

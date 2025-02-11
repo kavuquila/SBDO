@@ -5,6 +5,11 @@ class Login extends CI_Controller{
 
     public function index(){
 
+        if ($this->ion_auth->logged_in()) {
+            // Se o usuário já estiver logado, redireciona para o painel ou página inicial
+            redirect('home');
+        }
+
         $data = array(
             'titulo' => 'Login',
         );

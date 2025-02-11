@@ -18,6 +18,11 @@ class Usuarios extends CI_Controller{
     
        public function index(){
 
+         if(!$this->ion_auth->is_admin()){
+            $this->session->set_flashdata('error',' Usuário não autorizado');
+           redirect('home/perfil');
+         }
+
          $data = array(
             'styles' => array(
                'vendor/datatables/dataTables.bootstrap4.min.css',
@@ -38,6 +43,11 @@ class Usuarios extends CI_Controller{
        }
 
        public function edit($usuario_id = NULL) {
+
+         if(!$this->ion_auth->is_admin()){
+            $this->session->set_flashdata('error',' Usuário não autorizado');
+           redirect('home/perfil');
+         }
 
          if (!$usuario_id || !$this->ion_auth->user($usuario_id)->row()) {
 
@@ -123,7 +133,10 @@ class Usuarios extends CI_Controller{
        
        public function add(){
 
-     
+         if(!$this->ion_auth->is_admin()){
+            $this->session->set_flashdata('error',' Usuário não autorizado');
+           redirect('home/perfil');
+         }
          $this->form_validation->set_rules('first_name','','trim|required');
          $this->form_validation->set_rules('last_name','','trim|required');
          $this->form_validation->set_rules('email','','trim|required|valid_email|is_unique[users.email]');
@@ -190,6 +203,10 @@ class Usuarios extends CI_Controller{
          //FIM FUNÇÃO CADASTRAR////////////////////////////////////////
 
        public function del($usuario_id = NULL){ // FUNÇÃO DE DELETAR
+         if(!$this->ion_auth->is_admin()){
+            $this->session->set_flashdata('error',' Usuário não autorizado');
+           redirect('home/perfil');
+         }
           
           //fazer primeiro uma verificação para saeber se não foi passado um usuario
           

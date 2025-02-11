@@ -125,6 +125,18 @@ strong {
 
 <div class="profile-container">
         <div class="profile-card" style="height:1000px;padding-top:50px;">
+        <?php if ($message = $this->session->flashdata('error')): ?>
+                <div class="row" >
+                    <div class="col-md-12">
+                        <div id="alerta fecharDv" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong style="color:white;"><i class="fas fa-exclamation-triangle"></i> &nbsp;&nbsp; <?php echo $message; ?></strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
             <div class="profile-header">
                 <?php if($user->genero == 'Femenino'){ ?>
                 <img src="<?php echo base_url('public/img/woman.svg'); ?>" alt="Imagem de Perfil" class="profile-img">
@@ -151,3 +163,14 @@ strong {
             </div>
         </div>
     </div>
+    <script>
+        function fecharElementoAutomaticamente('fecharDv', 5000) {
+  // Espera o tempo em milissegundos e depois esconde o elemento
+  setTimeout(function() {
+    var elemento = document.getElementById(fecharDv);
+    if (elemento) {
+      elemento.style.display = 'none'; // Esconde o elemento
+    }
+  }, tempo);
+}
+    </script>

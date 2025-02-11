@@ -138,9 +138,7 @@
         }, 5000); // Remove a classe após 5 segundos
     <?php } ?>
 </script>
-
-<script>
-    // Função para fechar o elemento após X segundos
+ <script>  
     function fecharElemento(id, segundos) {
         setTimeout(function() {
             var elemento = document.getElementById(id);
@@ -161,6 +159,7 @@
     <?php endforeach; ?>
 <?php endif; ?>
 
+<script>
 </body>
 
 </html>

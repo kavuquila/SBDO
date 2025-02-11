@@ -1,3 +1,6 @@
+<a href="<?php echo base_url(); ?>" class="navbar-brand">
+        <img src="<?php echo base_url('public/img/logo.png'); ?>" alt="Logo" style="height: 40px; width: auto;">
+    </a>
 <ul class="navbar-nav ml-auto">
 <?php $user =  $this->ion_auth->user()->row(); ?> 
 <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -25,8 +28,7 @@
 </li>
 
 <!-- Nav Item - Alerts -->
-
-        <li class="nav-item dropdown no-arrow mx-1">
+<li class="nav-item dropdown no-arrow mx-1">
     <a href="<?php echo base_url('Home/add'); ?>" class="nav-link dropdown-toggle"  >
         <button class="btn btn-danger">Cadastrar</button>
     </a>
