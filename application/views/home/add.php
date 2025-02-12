@@ -93,8 +93,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="numeroPasses">Nº Passes entregues</label>
-                                <input type="number" placeholder="Total passes" class="form-control" id="numeroPasses" name="numeroPasses" required>
+                                <label for="numeroPasses">Total de Reclamações</label>
+                                <input type="number" placeholder="Total reclamações" class="form-control" id="numeroPasses" name="numeroPasses" required>
                             </div>
                         </div>
                     </div>
