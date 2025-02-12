@@ -88,6 +88,7 @@ class Home extends CI_Controller{
             $this->session->set_flashdata('error', 'Boletim não encontrado');
             redirect('home');
         } else {
+            $data_cadastro = date('Y-m-d H:i:s');
             // Regras de validação
             $this->form_validation->set_rules('numeroProvasVida', 'Número de Provas de Vida', 'trim|required');
             $this->form_validation->set_rules('numeroCadastrados', 'Número de Cadastrados', 'trim|required');
@@ -107,6 +108,7 @@ class Home extends CI_Controller{
                     'masculino' => $this->input->post('masculino'),
                     'feminino' => $this->input->post('feminino'),
                     'passes_entregues' => $this->input->post('numeroPasses'),
+                    'data_cadastro' => $data_cadastro,
                 );
 
                 // Escape de HTML
@@ -126,8 +128,8 @@ class Home extends CI_Controller{
                 'boletins' => $this->Boletim->get_by_id('cadastro_info', array('idBoletim' => $boletim_id)),
             );
 
-            $this->load->view('layout/header');
-            $this->load->view('home/edit', $data);
+            $this->load->view('layout/header', $data);
+            $this->load->view('home/edit');
             $this->load->view('layout/footer');
         }
     }
@@ -162,10 +164,12 @@ class Home extends CI_Controller{
             $data = array(
                 'titulo' => 'Cadastrar boletim',
             );
-            $this->load->view('layout/header');
-            $this->load->view('home/add', $data);
+            $this->load->view('layout/header', $data);
+            $this->load->view('home/add');
             $this->load->view('layout/footer');
         } else {
+
+            $cadastrodata = date('Y-m-d');
             // Coleta os dados do formulário
             $data = array(
                 'numero_Provas_vida' => $this->input->post('numeroProvasVida'),
@@ -175,13 +179,14 @@ class Home extends CI_Controller{
                 'feminino' => $this->input->post('feminino'),
                 'passes_entregues' => $this->input->post('numeroPasses'),
                 'idProvincia' => $this->input->post('idProvincia'),
-                'id' => $this->input->post('id')
+                'id' => $this->input->post('id'),
+                'cadastrodata' => $cadastrodata,
             );
 
             $idProvincia = $this->input->post('idProvincia');
 
             // Verifica se já existe um boletim para a mesma data e província
-            $this->db->where('DATE(data_cadastro)', date('Y-m-d'));
+            $this->db->where('DATE(cadastrodata)', date('Y-m-d'));
             $this->db->where('idProvincia', $idProvincia);
             $query = $this->db->get('cadastro_info');
 
