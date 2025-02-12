@@ -30,35 +30,38 @@ class Boletim extends CI_Model{
     }
   
    }
-
    public function get_boletim_filtrar($dataInicial = NULL, $dataFinal = NULL, $provincia){
-    
-        $this->db->select('*');
-        $this->db->from('cadastro_info');
 
-        if(!empty($dataInicial)){
+    $this->db->select('*');
+    $this->db->from('cadastro_info');    
 
-           $this->db->where('data_cadastro >=',$dataInicial);
-
-        }
-        if(!empty($dataFinal)){
-
-            $this->db->where('data_cadastro <=',$dataFinal);
- 
-         }
-         if(!empty($provincia)){
-
-            $this->db->where('provincia.idProvincia',$provincia);
- 
-         }
-         $this->db->join('provincia', 'provincia.idProvincia = cadastro_info.idProvincia');
-         $this->db->join('users', 'users.id = cadastro_info.id');
-
-         $sql = $this->db->get();
-
-        return $sql->result();
+    // Verifica se a data inicial foi passada e aplica a condição
+    if(!empty($dataInicial)){
+        // A data inicial deve ser menor ou igual a data de cadastro
+        $this->db->where('DATE(data_cadastro) >= ', $dataInicial);
     }
 
+    // Verifica se a data final foi passada e aplica a condição
+    if(!empty($dataFinal)){
+        // A data final deve ser menor ou igual a data de cadastro
+        $this->db->where('DATE(data_cadastro) <= ', $dataFinal);
+    }
+
+    // Verifica se a província foi passada e aplica a condição
+    if(!empty($provincia)){
+        $this->db->where('provincia.idProvincia', $provincia);
+    }
+
+    // Fazendo o join com as tabelas 'provincia' e 'users'
+    $this->db->join('provincia', 'provincia.idProvincia = cadastro_info.idProvincia');
+    $this->db->join('users', 'users.id = cadastro_info.id');
+
+    // Executa a consulta
+    $sql = $this->db->get();
+
+    // Retorna o resultado
+    return $sql->result();
+}
 
 
    public function get_Boletim_registro($tabela = NULL , $condicao = NULL){
