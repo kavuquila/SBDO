@@ -27,6 +27,14 @@
     </div>
 </li>
 
+<li class="nav-item dropdown no-arrow mx-1">
+    <a href="<?php echo base_url('Home/filtrar'); ?>" class="nav-link dropdown-toggle"  >
+        <button class="btn btn-light">  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-600" style="font-size:10px;"></i> Filtrar dados</button>
+    </a>
+    <!-- Dropdown - Alerts -->
+    
+</li>
+
 <!-- Nav Item - Alerts -->
 <li class="nav-item dropdown no-arrow mx-1">
     <a href="<?php echo base_url('Home/add'); ?>" class="nav-link dropdown-toggle"  >
