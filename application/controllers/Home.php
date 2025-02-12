@@ -35,6 +35,39 @@ class Home extends CI_Controller{
         $this->load->view('layout/footer');
     }
 
+    public function filtrar(){ 
+        $data = array(
+            'titulo' => 'Filtrar dados',
+            'provincias' => $this->Boletim->get_all_p('provincia'),
+        );
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('home/filtrar');
+        $this->load->view('layout/footer');
+    }
+    public function filtro(){ 
+
+       $dataInicial = $this->input->post('dataInicial');
+       $dataFinal = $this->input->post('dataFinal');
+       $provincia = $this->input->post('provincia');
+
+        if(empty(($dataInicial || $dataFinal || $provincia))){
+            $this->session->set_flashdata('error', 'Deve selecionar os campos');
+            redirect('filtrar');
+        }else{
+
+            $data = array(
+                'titulo' => 'Filtrar dados',
+                'boletins' => $this->Boletim->get_boletim_filtrar($dataInicial,$dataFinal,$provincia),
+            );
+
+            $this->load->view('layout/header', $data);
+            $this->load->view('home/docTable');
+            $this->load->view('layout/footer');
+           
+        }
+
+    }
     // Detalhes do Boletim
     public function docTable($boletim_id = NULL){
         if(!$boletim_id || !$this->Boletim->get_by_id('cadastro_info', array('idBoletim' => $boletim_id))){
