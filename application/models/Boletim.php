@@ -18,6 +18,49 @@ class Boletim extends CI_Model{
   
    }
 
+   public function get_all_p($tabela = NULL , $condicao = NULL){
+    
+    if($tabela){
+        if(is_array($condicao)){
+            $this->db->where($condicao);
+        }
+        return $this->db->get($tabela)->result();
+    }else{
+        return FALSE;
+    }
+  
+   }
+
+   public function get_boletim_filtrar($dataInicial = NULL, $dataFinal = NULL, $provincia){
+    
+        $this->db->select('*');
+        $this->db->from('cadastro_info');
+
+        if(!empty($dataInicial)){
+
+           $this->db->where('data_cadastro >=',$dataInicial);
+
+        }
+        if(!empty($dataFinal)){
+
+            $this->db->where('data_cadastro <=',$dataFinal);
+ 
+         }
+         if(!empty($provincia)){
+
+            $this->db->where('provincia.idProvincia',$provincia);
+ 
+         }
+         $this->db->join('provincia', 'provincia.idProvincia = cadastro_info.idProvincia');
+         $this->db->join('users', 'users.id = cadastro_info.id');
+
+         $sql = $this->db->get();
+
+        return $sql->result();
+    }
+
+
+
    public function get_Boletim_registro($tabela = NULL , $condicao = NULL){
     
     if($tabela){
