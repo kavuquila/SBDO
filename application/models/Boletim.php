@@ -17,7 +17,8 @@ class Boletim extends CI_Model{
     }
   
    }
-
+  
+   //Pega todos dados da tabela
    public function get_all_p($tabela = NULL , $condicao = NULL){
     
     if($tabela){
@@ -38,13 +39,13 @@ class Boletim extends CI_Model{
     // Verifica se a data inicial foi passada e aplica a condição
     if(!empty($dataInicial)){
         // A data inicial deve ser menor ou igual a data de cadastro
-        $this->db->where('DATE(data_cadastro) >= ', $dataInicial);
+        $this->db->where('DATE(cadastrodata) >= ', $dataInicial);
     }
 
     // Verifica se a data final foi passada e aplica a condição
     if(!empty($dataFinal)){
         // A data final deve ser menor ou igual a data de cadastro
-        $this->db->where('DATE(data_cadastro) <= ', $dataFinal);
+        $this->db->where('DATE(cadastrodata) <= ', $dataFinal);
     }
 
     // Verifica se a província foi passada e aplica a condição
