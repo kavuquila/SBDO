@@ -1,5 +1,7 @@
+<link href="<?php echo base_url('public/css/loginEstilo.css') ?>" rel="stylesheet">
 <div class="container">
     <!-- Outer Row -->
+    
     <div class="row justify-content-center">
 
         <div class="col-xl-6 col-lg-12 col-md-9">
@@ -73,41 +75,3 @@
     </div>
 </div>
 
-<!-- Estilos customizados -->
-<style>
-    body {
-        font-family: 'Arial', sans-serif;
-        background-color: #e9ecef;
-    }
-
-    .card {
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .form-control-lg {
-        border-radius: 10px;
-        padding: 15px;
-        font-size: 16px;
-    }
-
-    .btn-block {
-        padding: 12px;
-        font-weight: bold;
-    }
-
-    .alert {
-        margin-top: 10px;
-        padding: 15px;
-        border-radius: 10px;
-    }
-
-    .custom-control-input:checked ~ .custom-control-label::before {
-        background-color: #007bff;
-    }
-
-    .custom-control-label {
-        font-size: 14px;
-    }
-</style>
