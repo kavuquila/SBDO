@@ -36,10 +36,8 @@
 
 <?php endif; ?>
 <?php if($message = $this->session->flashdata('info')): ?>
-
 <div class="row">
     <div class="col-md-12" >
-    
         <div id="alerta" class="alert alert-info alert-dismissible fade show" role="alert">
         <strong> <i class="fas fa-exclamation-triangle"></i> &nbsp;&nbsp; <?php echo $message; ?></strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -48,9 +46,7 @@
     </div>
     </div>
 </div>
-
 <?php endif; ?>
-
     <div class="row" id="atualizaDiv">
         <h3><strong>DADOS DAS OCORRÊNCIAS DIÁRIAS</strong></h3><br>
         <table class="table table-striped table-bordered mt-3 mb-3">
@@ -97,8 +93,7 @@
                         <a href="<?php echo base_url('home/del/'.$boletim->idBoletim); ?>" class="btn btn-sm btn-danger"> <i class="fas fa-trash-alt"></i></a>
                     <?php endif; ?>
                     <?php if(!($boletim->idProvincia == $user->idProvincia)): ?>
-                        <a href="<?php echo base_url('home/docTable/'.$boletim->idBoletim); ?>" class="text-align-center" target="_blank"> Visualizar</i></a>
-                        
+                        <a href="<?php echo base_url('home/docTable/'.$boletim->idBoletim); ?>" class="text-align-center" target="_blank"> Visualizar</i></a>    
                     <?php endif; ?>
                   </td>
                 </tr>
