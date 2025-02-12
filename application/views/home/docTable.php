@@ -135,7 +135,7 @@
                         <td><?php echo $boletim->numero_provas_vida; ?></td>
                         <td><?php echo $boletim->numero_cadastrados; ?></td>
                         <td><?php echo $boletim->passes_entregues; ?></td>
-                        <td><?php echo formata_data_banco_sem_hora($boletim->data_cadastro); ?></td>
+                        <td><?php echo formata_data_banco_sem_hora($boletim->cadastrodata); ?></td>
                     </tr>
                 <?php endforeach; ?>
                   
