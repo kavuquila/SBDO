@@ -99,14 +99,13 @@
     </style>
 </head>
 <body>
-    <?php foreach($boletins as $boletim): ?>
+  
     <!-- Documento A4 -->
     <div class="documento-a4">
         <!-- Título e Informações -->
         <div class="document-header">
-            <h3 class="title">Boletim Diário</h3>
-            <p>Secção Provincial do <?php echo $boletim->nomeProvincia; ?></p>
-            <p>Dados Atualizado por João Silva</p>
+            <h2 class="title">Boletim Diário </h2>
+            <p style="font-size:14px;"><B>DEPARTAMENTO DE TECNOLOGIAS DE INFORMAÇÃO E COMUNICAÇÃO</B></p>
         </div>
 
         <!-- Tabela de dados -->
@@ -114,26 +113,32 @@
             <table class="document-table">
                 <thead>
                     <tr>
-                        <th>Tipo</th>
+                        <th>Nº</th>
+                        <th>Provincia</th>
                         <th>Total Atendidos</th>
                         <th>Masculino</th>
                         <th>Femenino</th>
-                        <th>Total Prova de Vida</th>
-                        <th>Total Cadastramento</th>
-                        <th>Total Reclamações</th>
+                        <th>Prova de Vida</th>
+                        <th>Cadastrados</th>
+                        <th>Reclamações</th>
+                        <th>Data´cadastro</th>
                     </tr>
                 </thead>
                 <tbody>
+                <?php $count = 1; foreach($boletins as $boletim): ?>
                     <tr>
-                        <td>Boletim Diário</td>
+                        <td><?php echo $count++; ?></td>
+                        <td><?php echo $boletim->nomeProvincia; ?></td>
                         <td><?php echo $boletim->total_atendidos; ?></td>
                         <td><?php echo $boletim->masculino; ?></td>
                         <td><?php echo $boletim->feminino; ?></td>
                         <td><?php echo $boletim->numero_provas_vida; ?></td>
                         <td><?php echo $boletim->numero_cadastrados; ?></td>
                         <td><?php echo $boletim->passes_entregues; ?></td>
+                        <td><?php echo formata_data_banco_sem_hora($boletim->data_cadastro); ?></td>
                     </tr>
-                    <!-- Adicione mais linhas conforme necessário -->
+                <?php endforeach; ?>
+                  
                 </tbody>
             </table>
         </div>
@@ -142,7 +147,7 @@
         <div class="footer">
             <p>Documento gerado automaticamente. Todos os direitos reservados.</p>
         </div>
-        <?php endforeach; ?>
+       
     </div>
 </body>
 </html>
