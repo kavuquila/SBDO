@@ -144,6 +144,7 @@ class Usuarios extends CI_Controller{
          $this->form_validation->set_rules('password','Senha','required|min_length[5]|max_length[255]');
          $this->form_validation->set_rules('comfirm_password','Confirme','matches[password]');
          $this->form_validation->set_rules('idProvincia','','trim|required');
+         $this->form_validation->set_rules('genero','','trim|required');
 
         
          //ESSE IF , CASO OS DADOS FOREM PASSADOS COM SUCESSO , ENTÃO ELE EXECUTA O CADASTRAMENTO
@@ -153,6 +154,7 @@ class Usuarios extends CI_Controller{
             $password = $this->security->xss_clean($this->input->post('password'));
             $email = $this->security->xss_clean($this->input->post('email'));
             $idProvincia = $this->security->xss_clean($this->input->post('idProvincia'));
+           
 
             $additional_data = array(
                               'first_name' => $this->input->post('first_name'),
@@ -160,6 +162,7 @@ class Usuarios extends CI_Controller{
                               'username' => $this->input->post('username'),
                               'active' => $this->input->post('active'),
                               'idProvincia' => $this->input->post('idProvincia'),
+                              'genero' => $this->input->post('genero'),
                               );
 
             $group = array($this->input->post('perfil_usuario')); // Sets user to admin.
@@ -171,7 +174,7 @@ class Usuarios extends CI_Controller{
 
              //FAZ UMA VERIFICA SE OS DADOS FORAM SALVOS
 
-             if( $this->ion_auth->register($username, $password, $email, $additional_data, $group, $idProvincia)){
+             if( $this->ion_auth->register($username, $password, $email, $additional_data, $group, $idProvincia,$genero)){
                //ESSA LINHA ABAIXO VAI GUARDA A MENSAGEM DE SUCESSO
                 $this->session->set_flashdata('sucesso','Dados Salvos com sucess');
              }else{
