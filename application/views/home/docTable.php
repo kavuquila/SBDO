@@ -120,7 +120,7 @@
                         <th>Femenino</th>
                         <th>Total Prova de Vida</th>
                         <th>Total Cadastramento</th>
-                        <th>Total Passes Entregues</th>
+                        <th>Total Reclamações</th>
                     </tr>
                 </thead>
                 <tbody>
