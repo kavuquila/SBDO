@@ -802,13 +802,14 @@ class Ion_auth_model extends CI_Model
 	 * @return    bool
 	 * @author    Mathew
 	 */
-	public function register($identity, $password, $email, $additional_data = [], $groups = [],$idProvincia = NULL)
+	public function register($identity, $password, $email, $additional_data = [], $groups = [],$idProvincia = NULL,$genero = NULL)
 	{
 		$this->trigger_events('pre_register');
 
 		$manual_activation = $this->config->item('manual_activation', 'ion_auth');
 
 		$data = array_merge($additional_data, array('idProvincia' => $idProvincia)); // Adiciona o campo personalizado
+		$data = array_merge($additional_data, array('genero' => $genero)); // Adiciona o campo personalizado
 
 		if ($this->identity_check($identity))
 		{
