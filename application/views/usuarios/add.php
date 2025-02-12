@@ -36,19 +36,28 @@
             <div class="card-body">
                 <form method="POST" name="form_add">
                     <div class="form-group row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="first_name">Nome</label>
                             <input type="text" class="form-control" name="first_name" placeholder="Primeiro nome" value="<?php echo set_value('first_name'); ?>">
                             <?php echo form_error('first_name', '<small class="form-text text-danger">','</small>'); ?>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="last_name">Sobrenome</label>
                             <input type="text" class="form-control" name="last_name" placeholder="Inserir sobrenome" value="<?php echo set_value('last_name'); ?>">
                             <?php echo form_error('last_name', '<small class="form-text text-danger">','</small>'); ?>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" name="email" placeholder="Inserir email" value="<?php echo set_value('email'); ?>">
+                            <?php echo form_error('email', '<small class="form-text text-danger">','</small>'); ?>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="email">Genero</label>
+                            <select class="form-control" name="genero" required>
+                                <option value="">Escolher</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                            </select>
                             <?php echo form_error('email', '<small class="form-text text-danger">','</small>'); ?>
                         </div>
                     </div>
