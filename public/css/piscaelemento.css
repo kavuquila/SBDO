@@ -21,5 +21,6 @@
     animation: piscar-fundo 1s infinite; /* 1s para duração e infinite para repetição */
   }
 
+  .color-red{color:red;}
 
  

@@ -22,7 +22,6 @@ class Login extends CI_Controller{
 
     public function auth(){
 
-
         $identity = $this->security->xss_clean($this->input->post('email'));
         $password = $this->security->xss_clean($this->input->post('password'));
         $remember = FALSE;
@@ -31,7 +30,11 @@ class Login extends CI_Controller{
 
         if($verify){  
 
-            redirect('home');
+            if(!$this->ion_auth->is_admin()){
+                redirect('Home/add');
+            }else{
+                redirect('Home/index');
+            }
         
         }else{
 

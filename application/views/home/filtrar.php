@@ -83,12 +83,22 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="numeroProvasVida"><b>Provincia</b></label>
+                                <?php if(!$this->ion_auth->is_admin()){ ?>
                                <select name="provincia" class="form-control" required>
-                                  <option value="">Selecionar Provincia</option>
                                   <?php foreach($provincias as $provincia): ?>
-                                  <option value="<?php echo $provincia->idProvincia; ?>"><?php echo $provincia->nomeProvincia; ?></option>
-                                  <?php endforeach; ?>
+                                    <?php if ($provincia->idProvincia == $user->idProvincia): ?>
+                                        <option value="<?php echo $user->idProvincia; ?>"><?php echo $provincia->nomeProvincia; ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                                </select>
+                               <?php }else{ ?>
+                                <select name="provincia" class="form-control" required>
+                                  <?php foreach($provincias as $provincia): ?>
+                                        <option value="">Selecionar Provincia</option>
+                                        <option value="<?php echo $provincia->idProvincia; ?>"><?php echo $provincia->nomeProvincia; ?></option>
+                                <?php endforeach; ?>
+                               </select>
+                               <?php } ?>
                             </div>
                         </div>
                     </div>

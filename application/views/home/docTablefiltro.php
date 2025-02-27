@@ -117,7 +117,7 @@
                         <th>Tipo</th>
                         <th>Total Atendidos</th>
                         <th>Masculino</th>
-                        <th>Femenino</th>
+                        <th>Feminino</th>
                         <th>Total Prova de Vida</th>
                         <th>Total Cadastramento</th>
                         <th>Total Reclamações</th>

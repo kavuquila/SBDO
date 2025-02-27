@@ -67,19 +67,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="numeroProvasVida">Número de Provas de Vida</label>
-                                        <input type="number" placeholder="Total prova de vida" value="<?php echo $boletins->numero_provas_vida; ?>" class="form-control" id="numeroProvasVida" name="numeroProvasVida" required>
+                                        <input type="number" min="0" placeholder="Total prova de vida" value="<?php echo $boletins->numero_provas_vida; ?>" class="form-control" id="numeroProvasVida" name="numeroProvasVida" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="numeroCadastrados">Número de Cadastrados</label>
-                                        <input type="number" placeholder="Total cadastrado" class="form-control" id="numeroCadastrados" value="<?php echo $boletins->numero_cadastrados; ?>" name="numeroCadastrados" required>
+                                        <input type="number" min="0" placeholder="Total cadastrado" class="form-control" id="numeroCadastrados" value="<?php echo $boletins->numero_cadastrados; ?>" name="numeroCadastrados" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="numeroPasses">Nº de reclamações</label>
-                                        <input type="number" value="<?php echo $boletins->passes_entregues; ?>" placeholder="Total reclamações" class="form-control" id="numeroPasses" name="numeroPasses" required>
+                                        <input type="number" min="0" value="<?php echo $boletins->passes_entregues; ?>" placeholder="Total reclamações" class="form-control" id="numeroPasses" name="numeroPasses" required>
                                     </div>
                                 </div>
                             </div>
@@ -89,13 +89,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="numeroMasculino">Masculino</label>
-                                        <input type="number" placeholder="Total Masculino" class="form-control" value="<?php echo $boletins->masculino; ?>" id="numeroMasculino" name="masculino" required>
+                                        <input type="number" min="0" placeholder="Total Masculino" class="form-control" value="<?php echo $boletins->masculino; ?>" id="numeroMasculino" name="masculino" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="numeroFeminino">Feminino</label>
-                                        <input type="number" placeholder="Total Femeninos" class="form-control" value="<?php echo $boletins->feminino; ?>" id="numeroFeminino" name="feminino" required>
+                                        <input type="number" min="0" placeholder="Total Femeninos" class="form-control" value="<?php echo $boletins->feminino; ?>" id="numeroFeminino" name="feminino" required>
                                     </div>
                                 </div>
                             </div>

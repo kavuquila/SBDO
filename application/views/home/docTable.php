@@ -117,7 +117,7 @@
                         <th>Provincia</th>
                         <th>Total Atendidos</th>
                         <th>Masculino</th>
-                        <th>Femenino</th>
+                        <th>Feminino</th>
                         <th>Prova de Vida</th>
                         <th>Cadastrados</th>
                         <th>Reclamações</th>

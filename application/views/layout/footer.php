@@ -86,7 +86,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="numeroFeminino">Feminino</label>
-                                <input type="number" placeholder="Total Femeninos" class="form-control" id="numeroFeminino" name="numeroFeminino" required>
+                                <input type="number" placeholder="Total Femininos" class="form-control" id="numeroFeminino" name="numeroFeminino" required>
                             </div>
                         </div>
                     </div>

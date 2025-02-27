@@ -17,8 +17,7 @@ class Boletim extends CI_Model{
     }
   
    }
-  
-   //Pega todos dados da tabela
+
    public function get_all_p($tabela = NULL , $condicao = NULL){
     
     if($tabela){
@@ -31,6 +30,51 @@ class Boletim extends CI_Model{
     }
   
    }
+  
+   //Pega todos dados da tabela
+   public function get_all_provincia($tabela = NULL , $provincia = NULL){
+    
+    if($tabela){
+        
+        // Adiciona o filtro para o campo 'idProvincia'
+        $this->db->where('cadastro_info.idProvincia', $provincia);
+        
+        // Realiza o JOIN entre as tabelas: cadastro_info, provincia e comentario
+        $this->db->join('provincia', 'provincia.idProvincia = cadastro_info.idProvincia');
+        $this->db->join('users', 'users.id = cadastro_info.id');
+        
+        return $this->db->get($tabela)->result();
+        
+    } else {
+        return FALSE;
+    }
+}
+public function get_all_comentario($tabela = NULL) {
+    if ($tabela) {
+        // Realiza o JOIN entre a tabela 'comentario' e a tabela 'users' (por exemplo, usando 'user_id')
+        $this->db->select('comentario.*, users.*');  // Seleciona todos os campos de ambas as tabelas
+        $this->db->from($tabela);  // Define a tabela principal (comentario)
+        $this->db->join('users', 'comentario.id = users.id', 'left');  // Faz o JOIN com a tabela 'users'
+        
+        return $this->db->get()->result();  // Retorna o resultado
+    } else {
+        return FALSE;
+    }
+}
+
+public function get_all_pro() {
+   
+        // Realiza o JOIN entre a tabela 'comentario' e a tabela 'users' (por exemplo, usando 'user_id')
+        $this->db->select('provincia.*, users.*');  // Seleciona todos os campos de ambas as tabelas
+        $this->db->from('provincia');  // Define a tabela principal (comentario)
+        $this->db->join('users', 'provincia.idProvincia = users.idProvincia');  // Faz o JOIN com a tabela 'users'
+        $this->db->limit(1);
+        
+        return $this->db->get()->result();  // Retorna o resultado
+ 
+}
+
+
    public function get_boletim_filtrar($dataInicial = NULL, $dataFinal = NULL, $provincia){
 
     $this->db->select('*');
@@ -97,7 +141,6 @@ class Boletim extends CI_Model{
         return FALSE;
     }
 }
-
 
    public function get_by_id($tabela = NULL, $condicao =NULL){
     if($tabela && is_array($condicao)){

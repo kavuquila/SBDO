@@ -38,7 +38,7 @@
 <!-- Nav Item - Alerts -->
 <li class="nav-item dropdown no-arrow mx-1">
     <a href="<?php echo base_url('Home/add'); ?>" class="nav-link dropdown-toggle"  >
-        <button class="btn btn-danger">Cadastrar</button>
+        <?php if($this->ion_auth->is_admin()){?><button class="btn btn-danger" disabled>Cadastrar</button><?php }else{ ?><button class="btn btn-danger">Cadastrar</button><?php }?>
     </a>
     <!-- Dropdown - Alerts -->
     

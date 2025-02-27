@@ -25,6 +25,11 @@ class Home extends CI_Controller{
 
     // Página Inicial
     public function index(){ 
+
+        if(!$this->ion_auth->is_admin()){
+         redirect('home/boletins');
+        }
+
         $data = array(
             'titulo' => 'Página Inicial',
             'boletins' => $this->Boletim->get_Boletim_registro('cadastro_info'),
@@ -32,6 +37,21 @@ class Home extends CI_Controller{
 
         $this->load->view('layout/header', $data);
         $this->load->view('home/index');
+        $this->load->view('layout/footer');
+    }
+
+    public function boletins(){ 
+        $user = $this->ion_auth->user()->row(); 
+        $provincia = $user->idProvincia;
+
+        $data = array(
+            'titulo' => 'Página Inicial',
+            'boletins' => $this->Boletim->get_all_provincia('cadastro_info', $provincia),
+            'comentarios' => $this->Boletim->get_all_comentario('comentario'),
+        );
+
+        $this->load->view('layout/header', $data);
+        $this->load->view('home/boletins');
         $this->load->view('layout/footer');
     }
 
@@ -82,6 +102,22 @@ class Home extends CI_Controller{
         }
     }
 
+    public function invalidar($boletim_id = NULL){
+        if(!$boletim_id || !$this->Boletim->get_by_id('cadastro_info', array('idBoletim' => $boletim_id))){
+            $this->session->set_flashdata('error', 'Boletim não encontrado');
+            redirect('home');
+        } else {
+            $data = array(
+                'titulo' => 'Boletim diário',
+                'boletins' => $this->Boletim->get_Boletim_registro('cadastro_info', array('idBoletim' => $boletim_id)),
+            );
+
+            $this->load->view('layout/header', $data);
+            $this->load->view('home/invalidar', $data);
+            $this->load->view('layout/footer');
+        }
+    }
+
     // Editar Boletim
     public function edit($boletim_id = NULL) {
         if(!$boletim_id || !$this->Boletim->get_by_id('cadastro_info', array('idBoletim' => $boletim_id))) {
@@ -89,18 +125,22 @@ class Home extends CI_Controller{
             redirect('home');
         } else {
             $data_cadastro = date('Y-m-d H:i:s');
+            
             // Regras de validação
             $this->form_validation->set_rules('numeroProvasVida', 'Número de Provas de Vida', 'trim|required');
             $this->form_validation->set_rules('numeroCadastrados', 'Número de Cadastrados', 'trim|required');
             $this->form_validation->set_rules('masculino', 'Masculino', 'trim|required');
             $this->form_validation->set_rules('feminino', 'Feminino', 'trim|required');
             $this->form_validation->set_rules('numeroPasses', 'Passes entregues', 'trim|required');
-
+            
             $masculino = intval($this->input->post('masculino'));
             $feminino = intval($this->input->post('feminino'));
             $totalsoma = $masculino + $feminino;
-
+           
+    
             if ($this->form_validation->run()) {
+                $validacao = 'validado';
+                // Dados para atualização do boletim
                 $data = array(
                     'numero_provas_vida' => $this->input->post('numeroProvasVida'),
                     'numero_cadastrados' => $this->input->post('numeroCadastrados'),
@@ -109,30 +149,45 @@ class Home extends CI_Controller{
                     'feminino' => $this->input->post('feminino'),
                     'passes_entregues' => $this->input->post('numeroPasses'),
                     'data_cadastro' => $data_cadastro,
-                );
+                    'wait' => 'sim',
 
+                );
+    
                 // Escape de HTML
                 $data = html_escape($data);
-
+    
                 // Atualiza o boletim
                 $this->Boletim->update('cadastro_info', $data, array('idBoletim' => $boletim_id));
-
+    
+                // Atualiza o status na tabela de comentários
+                $comentario_data = array(
+                    'responder' => 'validado', // Atualizando o status para 'validar'
+                    'estado' => 'lido'
+                );
+    
+                // Escape de HTML para os dados do comentário
+                $comentario_data = html_escape($comentario_data);
+    
+                // Atualiza o comentário relacionado ao boletim
+                $this->Boletim->update('comentario', $comentario_data, array('idBoletim' => $boletim_id));
+    
                 // Mensagem de sucesso
-                $this->session->set_flashdata('info', 'Boletim Atualizado');
+                $this->session->set_flashdata('info', 'Boletim e comentário atualizados');
                 redirect('home');
             }
-
+    
             // Carrega a view de edição
             $data = array(
                 'titulo' => 'Atualizar boletim',
                 'boletins' => $this->Boletim->get_by_id('cadastro_info', array('idBoletim' => $boletim_id)),
             );
-
+    
             $this->load->view('layout/header', $data);
             $this->load->view('home/edit');
             $this->load->view('layout/footer');
         }
     }
+    
 
     public function perfil(){
         $data = array(
@@ -163,6 +218,7 @@ class Home extends CI_Controller{
         if ($this->form_validation->run() == FALSE) {
             $data = array(
                 'titulo' => 'Cadastrar boletim',
+                'provincia' => $this->Boletim->get_all_pro(),
             );
             $this->load->view('layout/header', $data);
             $this->load->view('home/add');
@@ -181,6 +237,8 @@ class Home extends CI_Controller{
                 'idProvincia' => $this->input->post('idProvincia'),
                 'id' => $this->input->post('id'),
                 'cadastrodata' => $cadastrodata,
+                'wait' => 'nao',
+                'status' => 'validado',
             );
 
             $idProvincia = $this->input->post('idProvincia');
@@ -197,7 +255,7 @@ class Home extends CI_Controller{
                 // Insere os dados no banco
                 $this->Boletim->insert('cadastro_info', $data);
                 $this->session->set_flashdata('info', 'Boletim cadastrado com sucesso!');
-                redirect('home');
+                redirect('home/boletins');
             }
         }
     }
@@ -210,6 +268,107 @@ class Home extends CI_Controller{
         } else {
             $this->Boletim->delete('cadastro_info', array('idBoletim' => $boletim_id));
             redirect('home');
+        }
+    }
+
+    public function Inval() {
+        // Regras de validação
+        $this->form_validation->set_rules('comentario', 'Comentário', 'required');
+        
+        // Verifica se a validação do formulário passou
+        if ($this->form_validation->run() == FALSE) {
+            $data = array(
+                'titulo' => 'Invalidar dados',
+            );
+            // Carregar as views
+            $this->load->view('layout/header', $data);
+            $this->load->view('home/invalidar');
+            $this->load->view('layout/footer');
+        } else {
+            // Coleta os dados do formulário
+            $invalidado = "invalidado";
+            $data = array(
+                'descricao' => $this->input->post('comentario'), 
+                'id' => $this->input->post('id'), 
+                'idBoletim' => $this->input->post('idboletim'),
+                'responder' => 'invalidado',
+                'estado' => 'naolido',
+            );
+    
+            $datacadastro = array(
+                'status' => 'invalidado', // Status "invalidado"
+            );
+    
+            // Recupera o idBoletim corretamente do formulário
+            $boletim_id = $this->input->post('idboletim');
+            
+            // Chamada para atualizar os dados na tabela cadastro_info
+            $this->Boletim->update('cadastro_info', $datacadastro, array('idBoletim' => $boletim_id));
+            
+            // Chamada para inserir o comentário na tabela comentario
+            $this->Boletim->insert('comentario', $data);
+    
+            // Configuração de mensagem de sucesso
+            $this->session->set_flashdata('info', 'O boletim foi invalidado');
+            
+            // Redirecionamento
+            redirect('home');
+        }
+    }
+    
+
+
+
+    public function validar($boletim_id) {
+
+        // Verifica se a validação do formulário passou
+        if ($boletim_id) {
+
+               // Coleta os dados do formulário
+               $invalidado = "validado";
+       
+               $datacadastro = array(
+                   'status' => $invalidado, // Status "invalidado"
+                   'wait' => 'nao', // Status "invalidado"
+               );
+       
+               // Chamada para atualizar os dados na tabela cadastro_info
+               $this->Boletim->update('cadastro_info', $datacadastro, array('idBoletim' => $boletim_id));
+               
+               // Configuração de mensagem de sucesso
+               $this->session->set_flashdata('info', 'O boletim foi validado');
+               
+               // Redirecionamento
+               redirect('home');
+    
+        } else {
+            redirect('home');
+         
+        }
+    }
+    
+    public function lerMensagem($boletim_id) {
+
+        if ($boletim_id) {
+
+               $lido = "lido";
+       
+               $datacadastro = array(
+                   'estado' => $lido, 
+               );
+       
+               // Chamada para atualizar os dados na tabela 
+               $this->Boletim->update('comentario', $datacadastro, array('idBoletim' => $boletim_id));
+               
+               // Configuração de mensagem de sucesso
+               $this->session->set_flashdata('info', 'Mensagem marcada como lida');
+               
+               // Redirecionamento
+               redirect('home');
+    
+        } else {
+            redirect('home');
+         
         }
     }
 
