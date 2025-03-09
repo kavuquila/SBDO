@@ -79,9 +79,7 @@
   color: #555;
 }
 
-strong {
-  color:rgb(255, 0, 55);
-}
+
 
         </style>
 
