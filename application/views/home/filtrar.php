@@ -93,8 +93,8 @@
                                </select>
                                <?php }else{ ?>
                                 <select name="provincia" class="form-control" required>
+                                <option value="">Selecionar Provincia</option>
                                   <?php foreach($provincias as $provincia): ?>
-                                        <option value="">Selecionar Provincia</option>
                                         <option value="<?php echo $provincia->idProvincia; ?>"><?php echo $provincia->nomeProvincia; ?></option>
                                 <?php endforeach; ?>
                                </select>
