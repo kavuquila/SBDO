@@ -66,7 +66,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="numeroProvasVida"><b>Data inicial</b></label>
-                                <input type="date" class="form-control" id="numeroProvasVida" name="dataFinal" required>
+                                <input type="date" class="form-control" id="numeroProvasVida" name="dataInicial" required>
                             </div>
                         </div>
 
