@@ -119,9 +119,9 @@
                         <th>Masculino</th>
                         <th>Feminino</th>
                         <th>Prova de Vida</th>
-                        <th>Cadastrados</th>
+                        <th>Cadastros</th>
                         <th>Reclamações</th>
-                        <th>Data´cadastro</th>
+                        <th>Data cadastro</th>
                     </tr>
                 </thead>
                 <tbody>
